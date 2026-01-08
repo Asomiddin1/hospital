@@ -5,18 +5,20 @@ import Testimonials from '../components/about/testimonials'
 
 const Homepage = () => {
   return (
-    <div className='w-full '>
-     <div className='custom_home_bg h-screen pt-10 flex flex-col justify-end items-center gap-6'>
-        
-     </div>
-     <div>
+    <div className='w-full'>
+      {/* Rasm qismi */}
+      <div className='custom_home_bg w-full min-h-[80vh] md:min-h-screen relative mt-10'>
+         {/* Agar rasm ustida matn bo'lsa, shu yerga yozasiz */}
+      </div>
+
+      {/* Kontent qismi */}
+      <div className='relative z-10 bg-white'>
         <TotalCareModel />
         <DoctorTeam />
         <Testimonials />
-     </div>
+      </div>
     </div>
   )
 }
 
-export default Homepage 
-
+export default Homepage

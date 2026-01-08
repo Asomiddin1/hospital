@@ -4,6 +4,7 @@
   /* Orqa fondagi rasmni assets papkasiga 'homebg.png' nomi bilan saqlang */
   background-image: linear-gradient(to right, rgba(255,255,255,0.1), transparent), url('./assets/homebg.png');
   background-size: cover;
+  background-position-x: center;
   margin-top: -20px;
 
 }
