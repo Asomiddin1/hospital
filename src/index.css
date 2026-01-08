@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+.custom_home_bg {
+  /* Orqa fondagi rasmni assets papkasiga 'homebg.png' nomi bilan saqlang */
+  background-image: linear-gradient(to right, rgba(255,255,255,0.1), transparent), url('./assets/homebg.png');
+  background-size: cover;
+  margin-top: -20px;
+
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
