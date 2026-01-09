@@ -13,9 +13,9 @@ const stats = [
 
 // Shifokorlar sonini 8 taga yetkazdik
 const allDoctors = [
-  { id: 1, name: 'Dr. Fiona Wood', role: 'Cardiology', image: 'https://img.freepik.com/free-photo/pleased-young-female-doctor-wearing-medical-robe-with-stethoscope-around-neck-standing-with-folded-arms-isolated-on-white-wall_231208-13000.jpg', color: '#0e7490' },
+  { id: 1, name: 'Dr. Fiona Wood', role: 'Cardiology', image: 'https://img.freepik.com/premium-psd/portrait-smiling-female-doctor-isolated-white-background_944525-22130.jpg', color: '#0e7490' },
   { id: 2, name: 'Dr. Gregory House', role: 'Diagnostic', image: DoctorHouse, color: '#2563eb' },
-  { id: 3, name: 'Dr. James Wilson', role: 'Pediatrics', image: 'https://img.freepik.com/free-photo/doctor-with-stethoscope-smiling-at-camera_1154-441.jpg', color: '#7c3aed' },
+  { id: 3, name: 'Dr. James Wilson', role: 'Pediatrics', image: 'https://img.freepik.com/free-photo/close-up-doctor-getting-ready-work_23-2149152478.jpg?semt=ais_hybrid&w=740', color: '#7c3aed' },
   { id: 4, name: 'Dr. Charlie Teo', role: 'Neurology', image: 'https://img.freepik.com/free-photo/smiling-asian-male-doctor-pointing-upwards_1262-18321.jpg', color: '#db2777' },
   { id: 5, name: 'Dr. Sarah Jenkins', role: 'Dentist', image: 'https://img.freepik.com/free-photo/portrait-smiling-female-doctor_107420-64810.jpg', color: '#0e7490' },
   { id: 6, name: 'Dr. Robert Chase', role: 'Surgeon', image: 'https://img.freepik.com/free-photo/doctor-offering-medical-teleconsultation_23-2149329007.jpg', color: '#2563eb' },

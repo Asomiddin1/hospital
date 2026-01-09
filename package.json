@@ -17,6 +17,7 @@
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.12.0",
     "react-router-hash-link": "^2.4.3",
+    "react-top-loading-bar": "^3.0.2",
     "react-youtube": "^10.1.0",
     "tailwindcss": "^4.1.18"
   },

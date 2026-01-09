@@ -7,7 +7,7 @@ const doctors = [
   {
     name: 'Dr. Fiona Wood',
     role: 'Cardiology Specialist',
-    image: 'https://img.freepik.com/free-photo/pleased-young-female-doctor-wearing-medical-robe-with-stethoscope-around-neck-standing-with-folded-arms-isolated-on-white-wall_231208-13000.jpg',
+    image: 'https://img.freepik.com/premium-psd/portrait-smiling-female-doctor-isolated-white-background_944525-22130.jpg',
     color: '#0e7490'
   },
   {
@@ -19,7 +19,7 @@ const doctors = [
   {
     name: 'Dr. James Wilson',
     role: 'Senior Pediatrician',
-    image: 'https://img.freepik.com/free-photo/doctor-with-stethoscope-smiling-at-camera_1154-441.jpg',
+    image: 'https://img.freepik.com/free-photo/close-up-doctor-getting-ready-work_23-2149152478.jpg?semt=ais_hybrid&w=740',
     color: '#7c3aed'
   },
   {

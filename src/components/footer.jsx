@@ -6,7 +6,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0e7490] text-white pt-20 pb-10 overflow-hidden relative">
+    <footer className="bg-[#0e7490] text-white pt-10 pb-5 overflow-hidden relative">
       {/* Dekorativ effektlar */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
       

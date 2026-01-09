@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { NavHashLink } from 'react-router-hash-link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X, User } from 'lucide-react';
 import Logo from '../../assets/logo.jpg';
+import { Link } from 'react-router-dom';
 
 const navLinks = [
   { name: 'Home', href: '/#home' },
@@ -16,97 +17,142 @@ const navLinks = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation(); // Hozirgi yo'lni kuzatish uchun
+  const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Hozirgi link aktivligini tekshirish funksiyasi
   const checkActive = (linkHref) => {
     const currentPath = location.pathname + location.hash;
-    // Agar biz '/'damiz va hash bo'lmasa, Home aktiv bo'lsin
     if (location.pathname === '/' && location.hash === '' && linkHref === '/#home') return true;
-    return currentPath === linkHref || location.pathname === linkHref;
+    return currentPath === linkHref;
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 md:px-12 py-4 transition-all duration-500 ${
-      scrolled || isOpen ? 'bg-[#0e7490] shadow-2xl py-3' : 'bg-transparent'
+    <nav className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-4 md:px-8 py-3 transition-all duration-300 ${
+      scrolled || isOpen ? 'bg-[#0e7490] shadow-xl py-2' : 'bg-transparent'
     }`}>
       
-      {/* LOGOTIP */}
-      <NavHashLink smooth to="/#home" className="flex items-center gap-2 z-[110]">
-        <img className="w-10 h-10 rounded-xl" src={Logo} alt="Logo" />
-        <h1 className="text-xl font-black text-white uppercase tracking-tighter">MedixWeb</h1>
-      </NavHashLink>
+      {/* 1. LOGO SECTION */}
+      <div className="flex items-center z-[110]">
+        <NavHashLink smooth to="/#home" className="flex items-center gap-2">
+          <img className="w-8 h-8 md:w-10 md:h-10 rounded-lg object-cover" src={Logo} alt="Logo" />
+          <h1 className="text-lg md:text-xl font-black text-white uppercase tracking-tight">MedixWeb</h1>
+        </NavHashLink>
+      </div>
 
-      {/* DESKTOP MENU - Active Pill Effekti bilan */}
-      <ul className="hidden lg:flex items-center gap-1 bg-white/10 backdrop-blur-md p-1 rounded-full border border-white/20">
-        {navLinks.map((link) => {
-          const isActive = checkActive(link.href);
-          return (
-            <li key={link.name} className="relative">
-              <NavHashLink
-                smooth
-                to={link.href}
-                className={`relative px-5 py-2 text-sm font-bold transition-all duration-300 block z-10 ${
-                  isActive ? 'text-[#0e7490]' : 'text-white hover:text-blue-100'
-                }`}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="active-pill" // Bu barcha linklar orasida oq fonning silliq siljishini ta'minlaydi
-                    className="absolute inset-0 bg-white rounded-full shadow-lg"
-                    style={{ zIndex: -1 }}
-                    transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
-                  />
-                )}
-                {link.name}
-              </NavHashLink>
-            </li>
-          );
-        })}
-      </ul>
+      {/* 2. DESKTOP MENU - Faqat XL va undan kattalar uchun */}
+      <div className="hidden xl:flex absolute left-1/2 -translate-x-1/2">
+        <ul className="flex items-center gap-1 bg-white/10 backdrop-blur-md p-1 rounded-full border border-white/20">
+          {navLinks.map((link) => {
+            const isActive = checkActive(link.href);
+            return (
+              <li key={link.name} className="relative">
+                <NavHashLink
+                  smooth
+                  to={link.href}
+                  className={`relative px-4 py-2 text-sm font-bold transition-all duration-300 block z-10 ${
+                    isActive ? 'text-[#0e7490]' : 'text-white hover:text-white/80'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="active-pill"
+                      className="absolute inset-0 bg-white rounded-full"
+                      style={{ zIndex: -1 }}
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                  {link.name}
+                </NavHashLink>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
-      {/* CTA & HAMBURGER */}
-      <div className="flex items-center gap-4">
-         <button className="hidden sm:flex items-center gap-2 md:gap-3 bg-white text-[#0e7490] pl-4 pr-1.5 md:pl-6 md:pr-2 py-1.5 md:py-2 rounded-full font-bold hover:shadow-lg transition-all group shrink-0">
-          <span className="text-xs md:text-sm whitespace-nowrap cursor-pointer">Book Appointment</span>
-          <div className="bg-[#0e7490] p-1.5 rounded-full text-white transition-transform duration-300 group-hover:rotate-[-45deg]">
-            <ArrowRight size={14} className="md:w-[18px] md:h-[18px] cursor-pointer" />
+      {/* 3. CTA BUTTONS */}
+      <div className="flex items-center gap-2 md:gap-4">
+        {/* Book Appointment - Faqat MD ekranlardan boshlab ko'rinadi */}
+        <button className="hidden md:flex items-center gap-2 bg-white text-[#0e7490] pl-4 pr-1.5 py-1.5 rounded-full font-bold hover:shadow-lg transition-all group cursor-pointer">
+          <span className="text-xs lg:text-sm whitespace-nowrap">Book Appointment</span>
+          <div className="bg-[#0e7490] p-1 rounded-full text-white group-hover:rotate-[-45deg] transition-transform">
+            <ArrowRight size={14} />
           </div>
         </button>
-        <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-white z-[110]">
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+
+        {/* Sign In - Faqat LG ekranlarda */}
+        <Link to={'/auth/login'}>
+        <button className="hidden lg:flex items-center gap-2 px-4 py-2 border border-white/30 rounded-full text-[#0e7490] text-sm font-bold bg-white hover:text-[#014457] transition-all cursor-pointer">
+          <User size={16} />
+          Sign In
+        </button>
+        </Link>
+
+        {/* Mobile Menu Toggle */}
+        <button 
+          onClick={() => setIsOpen(!isOpen)} 
+          className="xl:hidden p-2 text-white z-[110] bg-white/10 rounded-lg border border-white/20 active:scale-95 transition-transform"
+        >
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* 4. MOBILE DRAWER */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            className="fixed inset-0 bg-[#0e7490] flex flex-col items-center justify-center gap-8 z-[100]"
-          >
-            {navLinks.map((link) => (
-              <NavHashLink
-                key={link.name}
-                smooth
-                to={link.href}
-                onClick={() => setIsOpen(false)}
-                className={`text-3xl font-black transition-all ${
-                  checkActive(link.href) ? 'text-blue-200' : 'text-white'
-                }`}
-              >
-                {link.name}
-              </NavHashLink>
-            ))}
-          </motion.div>
+          <>
+            {/* Overlay */}
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }} 
+              onClick={() => setIsOpen(false)} 
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] xl:hidden" 
+            />
+            
+            {/* Drawer Content */}
+            <motion.div 
+              initial={{ x: '100%' }} 
+              animate={{ x: 0 }} 
+              exit={{ x: '100%' }} 
+              transition={{ type: "spring", damping: 25, stiffness: 200 }} 
+              className="fixed top-0 right-0 h-full w-[80%] max-w-[320px] bg-[#0e7490] shadow-2xl z-[105] p-6 flex flex-col xl:hidden"
+            >
+              <div className="flex flex-col gap-4 mt-20">
+                {navLinks.map((link) => {
+                  const isActive = checkActive(link.href);
+                  return (
+                    <NavHashLink 
+                      key={link.name} 
+                      smooth 
+                      to={link.href} 
+                      onClick={() => setIsOpen(false)} 
+                      className={`text-lg font-semibold py-3 px-4 rounded-xl transition-all ${
+                        isActive ? 'bg-white text-[#0e7490]' : 'text-white/80 hover:bg-white/10'
+                      }`}
+                    >
+                      {link.name}
+                    </NavHashLink>
+                  );
+                })}
+              </div>  
+
+              <div className="mt-auto space-y-3">
+                <Link to={'/auth/login'}>
+                <button className="w-full flex items-center justify-center gap-2 py-3.5 border border-white/20 rounded-xl text-[white] font-bold bg-white/10 mb-3">
+                  <User size={18} /> Sign In
+                </button>
+                </Link>
+                <button className="w-full py-3.5 bg-white text-[#0e7490] rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg">
+                  Book Now <ArrowRight size={18} />
+                </button>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
