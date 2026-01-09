@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth !important;
+}
+
+/* Navbar balandligini hisobga olish uchun (ixtiyoriy) */
+:target {
+  scroll-margin-top: 80px;
+}
 .custom_home_bg {
   /* Orqa fondagi rasmni assets papkasiga 'homebg.png' nomi bilan saqlang */
   background-image: linear-gradient(to right, rgba(255,255,255,0.1), transparent), url('./assets/homebg.png');

@@ -11,7 +11,7 @@ const reviews = [
 
 const Testimonials = () => {
   return (
-    <section className="py-10 bg-white overflow-hidden">
+    <section id='testimonials' className="py-10 bg-white overflow-hidden">
       <div className="container mx-auto px-6 lg:px-16 mb-12">
         <div className="text-center max-w-2xl mx-auto space-y-4">
           <motion.div 
