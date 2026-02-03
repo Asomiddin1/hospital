@@ -5,7 +5,7 @@ import {
   Clock, ShieldCheck, ChevronRight, Phone, 
   Dna, Baby, Eye, Activity, FlaskConical, Syringe
 } from 'lucide-react';
-import HospitalBuilding from '../assets/hospital-building.png';
+import HospitalBuilding from '../../assets/hospital-building.png';
 
 const mainServices = [
   { 

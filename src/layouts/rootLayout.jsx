@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react' // useRef qo'shildi
+import React, { useState, useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import LoadingBar from 'react-top-loading-bar' // Import qilish
+import LoadingBar from 'react-top-loading-bar'
 import Navbar from '../components/navbar/navbar'
 import Footer from '../components/footer'
 
@@ -10,27 +10,30 @@ const RootLayout = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const { pathname, hash } = useLocation();
   
-  // Loading bar uchun ref
   const loadingRef = useRef(null);
 
-  // 1. Sahifa almashganda Loading bar va Scroll To Top
+  // Navbar va Footer ko'rinmaydigan sahifalar
+  const hiddenRoutes = [
+    '/auth/login', 
+    '/auth/register', 
+    '/patient-dashboard', 
+    '/doctor-dashboard', 
+    '/operator-dashboard'
+  ];
+
+  const isHidden = hiddenRoutes.includes(pathname);
+
   useEffect(() => {
-    // Progress barni boshlash
     loadingRef.current.continuousStart();
-
-    if (!hash) {
-      window.scrollTo(0, 0);
-    }
-
-    // Biroz vaqtdan keyin (sahifa "yuklangach") progress barni tugatish
+    if (!hash) window.scrollTo(0, 0);
+    
     const timer = setTimeout(() => {
       loadingRef.current.complete();
-    }, 500); // 500ms dan keyin tugaydi
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [pathname, hash]);
 
-  // 2. Navbar skroll mantiqi (o'zgarishsiz qoladi)
   useEffect(() => {
     const controlNavbar = () => {
       if (typeof window !== 'undefined') {
@@ -48,33 +51,29 @@ const RootLayout = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col">
-      {/* LOADING BAR KOMPONENTI */}
-      <LoadingBar 
-        color="#0e7490" // Chiziq rangi (ko'k yoki brendingizga mos rang)
-        ref={loadingRef} 
-        height={3} // Chiziq qalinligi
-        shadow={true} // Soyali effekt
-      />
+      <LoadingBar color="#0e7490" ref={loadingRef} height={3} shadow={true} />
 
-      <AnimatePresence mode="wait">
-        {isVisible && (
-          <motion.div
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "circOut" }}
-            className='fixed top-0 left-0 right-0 z-[100]'
-          >
-            <Navbar />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {!isHidden && (
+        <AnimatePresence mode="wait">
+          {isVisible && (
+            <motion.div
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -100, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "circOut" }}
+              className='fixed top-0 left-0 right-0 z-[100]'
+            >
+              <Navbar />  
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
 
       <main className="flex-grow">
         <Outlet />
       </main>
 
-      <Footer />
+      {!isHidden && <Footer />}
     </div>
   )
 }

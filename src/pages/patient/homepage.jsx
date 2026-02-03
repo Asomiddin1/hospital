@@ -1,8 +1,8 @@
-import React from 'react'
+
 import { motion } from 'framer-motion'
-import TotalCareModel from '../components/about/total-core'
-import DoctorTeam from '../components/about/doctor-team'
-import Testimonials from '../components/about/testimonials'
+import TotalCareModel from '../../components/about/total-core'
+import DoctorTeam from '../../components/about/doctor-team'
+import Testimonials from '../../components/about/testimonials'
 
 const Homepage = () => {
   return (

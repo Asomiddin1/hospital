@@ -10,7 +10,7 @@ import {
   Instagram, 
   Linkedin 
 } from 'lucide-react';
-import HospitalBuilding from '../assets/hospital-building.png';
+import HospitalBuilding from '../../assets/hospital-building.png';
 
 const Contact = () => {
   return (

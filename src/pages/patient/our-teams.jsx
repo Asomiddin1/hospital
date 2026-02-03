@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Award, Building2, HeartPulse, Instagram, Linkedin, Twitter } from 'lucide-react';
-import DoctorHouse from '../assets/doctorhouse.png';
-import HospitalBuilding from '../assets/hospital-building.png';
+import DoctorHouse from '../../assets/doctorhouse.png';
+import HospitalBuilding from '../../assets/hospital-building.png';
 
 const stats = [
   { label: 'Expert Doctors', value: '50+', icon: Users },

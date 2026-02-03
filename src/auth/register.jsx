@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, ArrowRight, Stethoscope, User, Phone, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import axios from 'axios'; // <--- 1. AXIOS IMPORT QILINDI
 
 const Register = () => {
   const navigate = useNavigate();
@@ -36,14 +37,31 @@ const Register = () => {
     }
 
     try {
-      // Backend so'rovi simulyatsiyasi
-      setTimeout(() => {
-        console.log("Ro'yxatdan o'tildi:", formData);
-        navigate('/auth/login'); // Muvaffaqiyatli bo'lsa login sahifasiga
-        setIsLoading(false);
-      }, 1500);
+      // 2. HAQIQIY BACKENDGA MA'LUMOT TAYYORLASH
+      const payload = {
+        name: formData.fullName, // Backend 'name' so'raydi
+        email: formData.email,
+        phone: formData.phone,   // Biz qo'shgan 'phone' ustuni
+        password: formData.password,
+        role: 'patient'          // Avtomatik 'bemor' bo'lib ochiladi
+      };
+
+      // 3. API GA YUBORISH
+      await axios.post('http://127.0.0.1:8000/api/register', payload);
+
+      // Muvaffaqiyatli bo'lsa:
+      alert("Muvaffaqiyatli ro'yxatdan o'tdingiz! Endi kirishingiz mumkin.");
+      navigate('/auth/login'); 
+
     } catch (err) {
-      setError('Xatolik yuz berdi. Iltimos qaytadan urinib ko\'ring.');
+      console.error(err);
+      // Xatolikni ko'rsatish
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Ro'yxatdan o'tishda xatolik yuz berdi. Internetni yoki ma'lumotlarni tekshiring.");
+      }
+    } finally {
       setIsLoading(false);
     }
   };
@@ -108,6 +126,7 @@ const Register = () => {
                 name="email"
                 type="email" 
                 required
+                value={formData.email}
                 onChange={handleChange}
                 className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-[#0e7490] transition-all"
                 placeholder="example@mail.com"
@@ -126,6 +145,7 @@ const Register = () => {
                 name="phone"
                 type="tel" 
                 required
+                value={formData.phone}
                 onChange={handleChange}
                 className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-[#0e7490] transition-all"
                 placeholder="+998 90..."
@@ -144,6 +164,7 @@ const Register = () => {
                 name="password"
                 type={showPassword ? "text" : "password"}
                 required
+                value={formData.password}
                 onChange={handleChange}
                 className="w-full pl-11 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-[#0e7490] transition-all"
                 placeholder="••••••••"
@@ -169,6 +190,7 @@ const Register = () => {
                 name="confirmPassword"
                 type={showPassword ? "text" : "password"}
                 required
+                value={formData.confirmPassword}
                 onChange={handleChange}
                 className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-[#0e7490] transition-all"
                 placeholder="••••••••"
